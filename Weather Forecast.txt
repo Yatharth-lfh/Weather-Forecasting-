@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to top, #87ceeb, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    #weather {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .forecast {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .day {
+      width: 30%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #f0f8ff;
+      border-radius: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Weather Forecast</h1>
+    <div id="weather">
+      <h2>Current Weather</h2>
+      <p id="location">Location: Loading...</p>
+      <p id="temperature">Temperature: -- °C</p>
+      <p id="description">Description: --</p>
+    </div>
+
+    <div class="forecast">
+      <div class="day">Day 1<br>Temp: -- °C</div>
+      <div class="day">Day 2<br>Temp: -- °C</div>
+      <div class="day">Day 3<br>Temp: -- °C</div>
+    </div>
+  </div>
+
+  <script>
+    // Example API integration - requires your API key from OpenWeatherMap
+    const apiKey = 'YOUR_API_KEY';
+    const city = 'London';
+    const units = 'metric';
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('location').textContent = `Location: ${data.name}`;
+        document.getElementById('temperature').textContent = `Temperature: ${data.main.temp} °C`;
+        document.getElementById('description').textContent = `Description: ${data.weather[0].description}`;
+      });
+  </script>
+
+</body>
+</html>
